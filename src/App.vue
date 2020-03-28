@@ -1,32 +1,45 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view />
+    <router-view></router-view>
+    <tab-bar>
+      <tab-bar-item
+        :path="item.path"
+        :iconClass="item.svg"
+        :text="item.text"
+        v-for="item in tabBarData"
+        :key="item.id"
+        class="tabBarItem"
+      ></tab-bar-item>
+    </tab-bar>
   </div>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script>
+import TabBar from "@/components/tabBar/TabBar";
+import TabBarItem from "@/components/tabBar/TabBarItem";
+export default {
+  name: "App",
+  data: function() {
+    return {
+      tabBarData: [
+        { svg: "home", text: "主页", path: "/home" },
+        { svg: "category", text: "分类", path: "/category" },
+        { svg: "cart", text: "购物车", path: "/cart" },
+        { svg: "me", text: "我的", path: "/me" }
+      ]
+    };
+  },
+  components: {
+    TabBar,
+    TabBarItem
+  }
+};
+</script>
 
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
+<style lang="scss" scoped>
+.tabBarItem {
+  &:hover {
+    color: $mainColor;
   }
 }
 </style>
