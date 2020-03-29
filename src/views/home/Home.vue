@@ -1,20 +1,115 @@
 <template>
   <div>
+    <!-- navbar -->
     <nav-bar class="home-nav-bar">
       <template #center>
         蘑菇街头
       </template>
     </nav-bar>
-    主页
+    <!-- 轮播图 -->
+    <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white">
+      <van-swipe-item v-for="item in swiperList" :key="item.id">
+        <a :href="item.link"> <img :src="item.image" :alt="item.title" /></a>
+      </van-swipe-item>
+    </van-swipe>
+    <!-- 推荐区 -->
+    <recommend class="padding-top-4">
+      <picture-item v-for="item in recommendList" :key="item.id" :link="item.link" :image="item.image" :text="item.title"></picture-item>
+    </recommend>
+    <!-- 流行区 -->
+    <popular>
+      <template #text>
+        本周流行
+      </template>
+      <template #item>
+        <picture-item v-for="item in recommendList" :key="item.id" :link="item.link" :image="item.image" :text="item.title"></picture-item>
+      </template>
+    </popular>
+    <!-- 内容区 -->
+    <van-tabs color="#ff699c" title-active-color="#ff699c" sticky id="top">
+      <van-tab title="流行">
+        <goods-list>
+          <goods-list-item v-for="item in goods.pop.list" :key="item.id" :link="item.link" :image="item.show.img" :title="item.title" :price="Number(item.price)" :sale="Number(item.sale)"></goods-list-item>
+        </goods-list>
+      </van-tab>
+      <van-tab title="新款">
+        <goods-list>
+          <goods-list-item v-for="item in goods.new.list" :key="item.id" :link="item.link" :image="item.show.img" :title="item.title" :price="Number(item.price)" :sale="Number(item.sale)"></goods-list-item>
+        </goods-list>
+      </van-tab>
+      <van-tab title="精选">
+        <goods-list>
+          <goods-list-item v-for="item in goods.sell.list" :key="item.id" :link="item.link" :image="item.show.img" :title="item.title" :price="Number(item.price)" :sale="Number(item.sale)"></goods-list-item>
+        </goods-list>
+      </van-tab>
+    </van-tabs>
+    <!-- 回到顶部 -->
+    <back-top></back-top>
   </div>
 </template>
 
 <script>
-import NavBar from "../../components/common/navBar/NavBar";
+//api
+import { GetHomeMultidata, GetHomeGoods } from "../../api/home.js";
+//方法
+import { scrollTop } from "../../utils/common.js";
+//组件
+import NavBar from "@/components/common/navBar/NavBar";
+import Recommend from "./childrenCom/Recommend";
+import PictureItem from "../../components/common/pictureItem/PictureItem";
+import Popular from "./childrenCom/Popular";
+import GoodsList from "../../components/goods/GoodsList";
+import GoodsListItem from "../../components/goods/GoodsListItem";
+import BackTop from "../../components/backTop/BackTop";
+
 export default {
   name: "Home",
+  data: function() {
+    return {
+      multidata: {},
+      swiperList: [],
+      recommendList: [],
+      goods: {
+        pop: { page: 0, list: [] },
+        new: { page: 0, list: [] },
+        sell: { page: 0, list: [] }
+      },
+      top: 0
+    };
+  },
   components: {
-    NavBar
+    NavBar,
+    Recommend,
+    PictureItem,
+    Popular,
+    GoodsList,
+    GoodsListItem,
+    BackTop
+  },
+  methods: {
+    //请求主页数据
+    getHomeMultidata() {
+      GetHomeMultidata().then(response => {
+        this.multidata = response.data.data;
+        this.swiperList = response.data.data.banner.list;
+        this.recommendList = response.data.data.recommend.list;
+      });
+    },
+    //请求主页商品数据
+    getHomeGoods(type) {
+      const page = this.goods[type].page + 1;
+      GetHomeGoods(type, page).then(response => {
+        const list = response.data.data.list;
+        this.goods[type].list.push(...list);
+      });
+    },
+    //滚动数据
+    //控制backTop组件的显示
+  },
+  created() {
+    this.getHomeMultidata(), this.getHomeGoods("pop");
+    this.getHomeGoods("new");
+    this.getHomeGoods("sell");
   }
 };
 </script>
@@ -25,5 +120,10 @@ export default {
   color: #fff;
   font-size: 18px;
   letter-spacing: 0.2rem;
+}
+.van-swipe-item {
+  img {
+    width: 100%;
+  }
 }
 </style>
