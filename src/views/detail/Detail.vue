@@ -3,7 +3,7 @@
     <!-- nav-bar -->
     <nav-bar class="nav-bar">
       <template #left>
-        <div>
+        <div @click="backHome()">
           <svg-icon icon-class="left" class="left"></svg-icon>
         </div>
       </template>
@@ -24,10 +24,10 @@
 
 <script>
 //api
-import { GetDetail } from "../../api/detail.js";
+import { GetDetail } from "@/api/detail.js";
 //组件
-import SvgIcon from "../../components/svgIcon/SvgIcon";
-import NavBar from "../../components/common/navBar/NavBar";
+import SvgIcon from "@/components/svgIcon/SvgIcon";
+import NavBar from "@/components/common/navBar/NavBar";
 export default {
   name: "Detail",
   data() {
@@ -36,7 +36,7 @@ export default {
       currentIndx: 0,
       title: ["商品", "参数", "评论", "推荐"],
       detailData: {},
-      swipeImg: []
+      swipeImg: [],
     };
   },
   components: {
@@ -52,6 +52,9 @@ export default {
         this.detailData = response.data.result;
         this.swipeImg = response.data.result.itemInfo.topImages;
       });
+    },
+    backHome() {
+      this.$router.push("/main/home");
     }
   },
   created() {

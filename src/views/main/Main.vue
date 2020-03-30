@@ -1,6 +1,8 @@
 <template>
   <div id="main">
-    <router-view></router-view>
+    <keep-alive>
+      <router-view></router-view>
+    </keep-alive>
     <tab-bar>
       <tab-bar-item :path="item.path" :iconClass="item.svg" :text="item.text" v-for="(item, index) in tabBarData" :key="item.id" :class="{tabBarItem: currentIndex === index}" @click.native="selectItem(index)"></tab-bar-item>
     </tab-bar>

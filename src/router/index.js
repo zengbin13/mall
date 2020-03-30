@@ -1,45 +1,38 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-const Home = () => import("../views/home/Home.vue")
-const Category = () => import("../views/category/Category.vue")
-const Cart = () => import("../views/cart/Cart.vue")
-const Me = () => import("../views/me/Me.vue")
-const Detail = () => import("../views/detail/Detail.vue")
+const Main = () => import("../views/main/Main.vue");
+const Home = () => import("../views/home/Home.vue");
+const Category = () => import("../views/category/Category.vue");
+const Cart = () => import("../views/cart/Cart.vue");
+const Me = () => import("../views/me/Me.vue");
+const Detail = () => import("../views/detail/Detail.vue");
 
 Vue.use(VueRouter);
 
 const routes = [
   {
     path: "/",
-    redirect: "/home"
+    redirect: "/main/home"
   },
   {
-    path: "/home",
-    name: "Home",
-    component: Home,
-    meta: {
-      keepAlive: true
-    }
+    path: "/main",
+    redirect: "/main/home"
   },
   {
-    path: "/category",
-    name: "Category",
-    component: Category
+    path: "/main",
+    name: "Main",
+    component: Main,
+    children: [
+      { path: "/main/home", name: "Home", component: Home },
+      { path: "/main/category", name: "Category", component: Category },
+      { path: "/main/cart", name: "Cart", component: Cart },
+      { path: "/main/me", name: "Me", component: Me }
+    ]
   },
   {
-    path: "/cart",
-    name: "Cart",
-    component: Cart
-  },
-  {
-    path: "/me",
-    name: "Me",
-    component: Me
-  },
-  {
-    path: "/me",
-    name: "Me",
-    component: Me
+    path: "/detail",
+    name: "Detail",
+    component: Detail
   }
 ];
 

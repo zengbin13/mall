@@ -56,17 +56,17 @@
 
 <script>
 //api
-import { GetHomeMultidata, GetHomeGoods } from "../../api/home.js";
+import { GetHomeMultidata, GetHomeGoods } from "@/api/home.js";
 //方法
 
 //组件
 import NavBar from "@/components/common/navBar/NavBar";
 import Recommend from "./childrenCom/Recommend";
-import PictureItem from "../../components/common/pictureItem/PictureItem";
+import PictureItem from "@/components/common/pictureItem/PictureItem";
 import Popular from "./childrenCom/Popular";
-import GoodsList from "../../components/goods/GoodsList";
-import GoodsListItem from "../../components/goods/GoodsListItem";
-import BackTop from "../../components/backTop/BackTop";
+import GoodsList from "@/components/goods/GoodsList";
+import GoodsListItem from "@/components/goods/GoodsListItem";
+import BackTop from "@/components/backTop/BackTop";
 
 export default {
   name: "Home",
