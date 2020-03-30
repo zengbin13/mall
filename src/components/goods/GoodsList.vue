@@ -6,7 +6,10 @@
 
 <script>
 export default {
-  name: "GoodsList"
+  name: "GoodsList",
+  activated() {
+    
+  }
 };
 </script>
 

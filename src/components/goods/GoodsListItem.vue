@@ -1,8 +1,8 @@
 <template>
-  <div class="goodsItem">
+  <div class="goodsItem" @click.prevent="itemClick()">
     <figure>
       <a :href="link">
-        <img :src="image" :alt="title">
+        <img :src="image" :alt="title" class="img">
       </a>
       <figcaption>{{title}}</figcaption>
     </figure>
@@ -31,6 +31,15 @@ export default {
     },
     sale: {
       type: Number
+    },
+    iid: {
+      type: String
+    }
+  },
+  methods: {
+    itemClick() {
+      //跳转详情页 携带商品信息ID
+      this.$router.push({path: "/detail", query: {iid: this.iid}})
     }
   }
 };

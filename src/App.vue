@@ -1,15 +1,10 @@
 <template>
   <div id="app">
-    <router-view></router-view>
+    <keep-alive>
+      <router-view></router-view>
+    </keep-alive>
     <tab-bar>
-      <tab-bar-item
-        :path="item.path"
-        :iconClass="item.svg"
-        :text="item.text"
-        v-for="item in tabBarData"
-        :key="item.id"
-        class="tabBarItem"
-      ></tab-bar-item>
+      <tab-bar-item :path="item.path" :iconClass="item.svg" :text="item.text" v-for="(item, index) in tabBarData" :key="item.id" :class="{tabBarItem: currentIndex === index}" @click.native="selectItem(index)"></tab-bar-item>
     </tab-bar>
   </div>
 </template>
@@ -21,6 +16,7 @@ export default {
   name: "App",
   data: function() {
     return {
+      currentIndex: 0,
       tabBarData: [
         { svg: "home", text: "主页", path: "/home" },
         { svg: "category", text: "分类", path: "/category" },
@@ -28,6 +24,11 @@ export default {
         { svg: "me", text: "我的", path: "/me" }
       ]
     };
+  },
+  methods: {
+    selectItem(index) {
+      this.currentIndex = index
+    }
   },
   components: {
     TabBar,
@@ -38,8 +39,6 @@ export default {
 
 <style lang="scss" scoped>
 .tabBarItem {
-  &:hover {
-    color: $mainColor;
-  }
+  color: $mainColor;
 }
 </style>

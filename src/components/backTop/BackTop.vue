@@ -22,7 +22,7 @@ export default {
   width: 45px;
   height: 45px;
   border-radius: 50%;
-  background-color: rgba($color: #000000, $alpha: .1);
+  background-color: rgba($color: #000000, $alpha: .2);
   position: fixed;
   bottom: 80px;
   right: 10px;
