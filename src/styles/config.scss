@@ -1,7 +1,9 @@
 //全局颜色
 $mainColor: #ff699c;
+$secColor: #fd9fbe;
 $bgColor: #f4f4f4;
 $mainText: #666;
+$secText: #999;
 
 //全局样式
 .pull-left {
@@ -16,6 +18,20 @@ $mainText: #666;
   clear: both;
   visibility: hidden;
   height: 0;
+}
+.after {
+  position: relative;
+  margin-bottom: 10px;
+  &::after {
+    content: "";
+    height: 10px;
+    width: 100%;
+    background-color: #f4f4f4;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -10px;
+  }
 }
 
 @for $i from 1 to 10 {

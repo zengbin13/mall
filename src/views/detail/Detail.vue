@@ -19,6 +19,14 @@
         <img :src="item" :alt="item" class="swipeImg">
       </van-swipe-item>
     </van-swipe>
+    <!-- intemInfo -->
+    <item-info :itemInfo="itemInfo" :columns="columns" class="after"></item-info>
+    <!-- shop info -->
+    <shop-info :shopInfo="shopInfo" class="after"></shop-info>
+    <!-- goods detail -->
+    <goods-detail :goodsDetail="goodsDetail" class="after"></goods-detail>
+    <!-- back top -->
+    <back-top></back-top>
   </div>
 </template>
 
@@ -28,6 +36,10 @@ import { GetDetail } from "@/api/detail.js";
 //组件
 import SvgIcon from "@/components/svgIcon/SvgIcon";
 import NavBar from "@/components/common/navBar/NavBar";
+import ItemInfo from "./itemInfo/ItemInfo";
+import ShopInfo from "./shopInfo/ShopInfo";
+import GoodsDetail from "./goodsDetail/GoodsDetail";
+import BackTop from "../../components/backTop/BackTop";
 export default {
   name: "Detail",
   data() {
@@ -37,11 +49,19 @@ export default {
       title: ["商品", "参数", "评论", "推荐"],
       detailData: {},
       swipeImg: [],
+      itemInfo: {},
+      columns: [],
+      shopInfo: {},
+      goodsDetail: {}
     };
   },
   components: {
     NavBar,
-    SvgIcon
+    SvgIcon,
+    ItemInfo,
+    ShopInfo,
+    GoodsDetail,
+    BackTop
   },
   methods: {
     selectItem(index) {
@@ -51,6 +71,10 @@ export default {
       GetDetail(this.iid).then(response => {
         this.detailData = response.data.result;
         this.swipeImg = response.data.result.itemInfo.topImages;
+        this.itemInfo = response.data.result.itemInfo;
+        this.columns = response.data.result.columns;
+        this.shopInfo = response.data.result.shopInfo;
+        this.goodsDetail = response.data.result.detailInfo.detailImage[0];
       });
     },
     backHome() {
@@ -66,6 +90,10 @@ export default {
 
 <style lang="scss" scoped>
 .nav-bar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background-color: #fff;
   .left {
     font-size: 20px;
     fill: $mainColor;

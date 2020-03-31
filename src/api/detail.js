@@ -10,3 +10,4 @@ export function GetDetail(iid) {
     }
   });
 }
+
