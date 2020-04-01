@@ -2,13 +2,15 @@
   <div class="goodsItem" @click.prevent="itemClick()">
     <figure>
       <a :href="link">
-        <img :src="image" :alt="title" class="img">
+        <img :src="image" :alt="title" class="img" />
       </a>
-      <figcaption>{{title}}</figcaption>
+      <figcaption>{{ title }}</figcaption>
     </figure>
     <div class="info">
-      <span class="price"><span>￥</span><span class="number">{{price}}</span></span>
-      <span class="sale">{{sale}}人已购买</span>
+      <span class="price"
+        ><span>￥</span><span class="number">{{ price }}</span></span
+      >
+      <span class="sale">{{ sale }}人已购买</span>
     </div>
   </div>
 </template>
@@ -39,7 +41,11 @@ export default {
   methods: {
     itemClick() {
       //跳转详情页 携带商品信息ID
-      this.$router.push({path: "/detail", query: {iid: this.iid}})
+      this.$router
+        .push({ path: "/detail", query: { iid: this.iid } })
+        .catch(error => {
+          error;
+        });
     }
   }
 };
@@ -89,7 +95,7 @@ export default {
     }
   }
 }
-@media screen and (min-width: 768px){
+@media screen and (min-width: 768px) {
   .goodsItem {
     width: 23%;
   }

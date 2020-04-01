@@ -12,7 +12,12 @@ import "./icons/index";
 import Vant from 'vant';
 import 'vant/lib/index.css';
 Vue.use(Vant);
-
+//全局方法
+import moment from 'moment'; //导入模块
+moment.locale('zh-cn'); //设置语言 或 moment.lang('zh-cn'); 
+Vue.filter('dateformat', (dataStr, pattern = 'YYYY-MM-DD') =>{
+  return moment(dataStr*1000).format(pattern)
+})
 
 new Vue({
   router,

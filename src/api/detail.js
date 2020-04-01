@@ -10,4 +10,10 @@ export function GetDetail(iid) {
     }
   });
 }
+export function GetRecommend() {
+  return request({
+    method: "get",
+    url: "/recommend",
+  });
+}
 

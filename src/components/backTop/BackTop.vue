@@ -1,6 +1,6 @@
 <template>
   <div>
-    <a href="#top" class="backTop">
+    <a class="backTop" @click="clickBack()" v-show="isShow">
       <svg-icon icon-class="arrow" class="arrow"></svg-icon>
     </a>
   </div>
@@ -10,8 +10,42 @@
 import SvgIcon from "../svgIcon/SvgIcon";
 export default {
   name: "BackTop",
+  props: {
+    showHeight: {
+      type: Number,
+      default: 2500
+    },
+    top: {
+      type: Number,
+      default: 0
+    }
+  },
+  data() {
+    return {
+      scrollTop: 0,
+    };
+  },
+  computed: {
+    isShow() {
+      return this.scrollTop > this.showHeight ? true : false
+    }
+  },
   components: {
     SvgIcon
+  },
+  methods: {
+    handerScroll() {
+      this.scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+    },
+    clickBack() {
+      window.scrollTo({
+        top: this.top,
+        behavior: "smooth"
+      });
+    }
+  },
+  mounted() {
+    window.addEventListener("scroll", this.handerScroll);
   }
 };
 </script>
@@ -22,7 +56,7 @@ export default {
   width: 45px;
   height: 45px;
   border-radius: 50%;
-  background-color: rgba($color: #000000, $alpha: .2);
+  background-color: rgba($color: #000000, $alpha: 0.2);
   position: fixed;
   bottom: 80px;
   right: 10px;

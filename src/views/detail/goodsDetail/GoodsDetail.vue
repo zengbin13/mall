@@ -1,8 +1,16 @@
 <template>
   <div class="goodsDetail">
-    <span class="desc">{{goodsDetail.key}}</span>
-    <div>
-      <img :src="item" :alt="item" v-for="item in goodsDetail.list" :key="item.id" style="width:100%">
+    <div v-for="items in goodsDetail" :key="items.id">
+      <span class="desc">{{ items.key }}</span>
+      <div>
+        <img
+          :src="item"
+          :alt="item"
+          v-for="item in items.list"
+          :key="item.id"
+          style="width:100%"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -12,9 +20,9 @@ export default {
   name: "GoodsDetail",
   props: {
     goodsDetail: {
-      type: Object
+      type: Array
     }
-  },
+  }
 };
 </script>
 
@@ -25,7 +33,8 @@ export default {
   height: 25px;
   line-height: 25px;
   padding: 5px 20px;
-  color: #000;
-  background-color: rgba(0, 0, 0, .2);
+  color: #fff;
+  font-weight: 600;
+  background-color: $secColor;
 }
 </style>

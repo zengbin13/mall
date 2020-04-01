@@ -50,7 +50,7 @@
       </van-tab>
     </van-tabs>
     <!-- 回到顶部 -->
-    <back-top v-show="isBackTop"></back-top>
+    <back-top :show-height="2000"></back-top>
   </div>
 </template>
 
@@ -82,7 +82,6 @@ export default {
       },
       current: 0,
       type: ["pop", "new", "sell"],
-      isBackTop: false,
       scrollHeight: 0,
       scrollTop: 0,
       clientHeight: 0,
@@ -127,12 +126,7 @@ export default {
     },
     //处理滚动的其他事件
     handleScroll() {
-      this.toggleBackTop();
       this.pullingUp();
-    },
-    //控制backTop显示隐藏
-    toggleBackTop() {
-      this.isBackTop = this.scrollTop > 1500 ? true : false;
     },
     //上拉加载更多
     pullingUp() {
