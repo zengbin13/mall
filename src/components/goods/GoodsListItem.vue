@@ -7,9 +7,7 @@
       <figcaption>{{ title }}</figcaption>
     </figure>
     <div class="info">
-      <span class="price"
-        ><span>￥</span><span class="number">{{ price }}</span></span
-      >
+      <span class="price"><span>￥</span><span class="number">{{ price }}</span></span>
       <span class="sale">{{ sale }}人已购买</span>
     </div>
   </div>
@@ -41,11 +39,9 @@ export default {
   methods: {
     itemClick() {
       //跳转详情页 携带商品信息ID
-      this.$router
-        .push({ path: "/detail", query: { iid: this.iid } })
-        .catch(error => {
-          error;
-        });
+      this.$router.push({ path: "/detail", query: { iid: this.iid } }).catch(error => {
+        error
+      });
     }
   }
 };

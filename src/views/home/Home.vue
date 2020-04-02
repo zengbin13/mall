@@ -65,8 +65,8 @@ import Recommend from "./childrenCom/Recommend";
 import PictureItem from "@/components/common/pictureItem/PictureItem";
 import Popular from "./childrenCom/Popular";
 import GoodsList from "@/components/goods/GoodsList";
-import GoodsListItem from "@/components/goods/GoodsListItem";
 import BackTop from "@/components/backTop/BackTop";
+import GoodsListItem from "@/components/goods/GoodsListItem";
 
 export default {
   name: "Home",
@@ -112,8 +112,10 @@ export default {
     //请求主页商品数据
     getHomeGoods(type) {
       const page = this.goods[type].page + 1;
+      // console.log(page);
       GetHomeGoods(type, page).then(response => {
         const list = response.data.data.list;
+        this.goods[type].page++
         this.goods[type].list.push(...list);
       });
     },

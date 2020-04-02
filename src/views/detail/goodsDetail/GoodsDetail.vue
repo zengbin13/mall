@@ -3,13 +3,7 @@
     <div v-for="items in goodsDetail" :key="items.id">
       <span class="desc">{{ items.key }}</span>
       <div>
-        <img
-          :src="item"
-          :alt="item"
-          v-for="item in items.list"
-          :key="item.id"
-          style="width:100%"
-        />
+        <img :src="item" :alt="item" v-for="item in items.list" :key="item.id" style="width:100%" @load="imgLoad()" />
       </div>
     </div>
   </div>
@@ -21,6 +15,11 @@ export default {
   props: {
     goodsDetail: {
       type: Array
+    }
+  },
+  methods: {
+    imgLoad() {
+      this.$emit("img-load")
     }
   }
 };

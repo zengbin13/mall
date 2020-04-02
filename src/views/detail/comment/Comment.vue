@@ -1,5 +1,5 @@
 <template>
-  <div class="comment after" v-if="Object.keys(comment).length !== 0">
+  <div class="comment after" v-if="this.comment.list">
     <div class="header">
       <div class="total">商品评价 ({{ comment.cRate }})</div>
       <a href="#" class="more">

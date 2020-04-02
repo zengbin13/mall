@@ -35,11 +35,8 @@ export default {
   methods: {
     selectItem(index) {
       this.currentIndx = index;
-      //滚动到某块区域
-      window.scrollTo({
-        top: 2000,
-        behavior: "smooth"
-      });
+      //向父组件抛出点击
+      this.$emit("nav-bar", this.currentIndx)
     },
     backHome() {
       this.$router.push("/main/home");
