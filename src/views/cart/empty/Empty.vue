@@ -12,11 +12,14 @@
 </template>
 
 <script>
+import { EventBus } from "@/utils/event-bus.js";
 export default {
   name: "Empty",
   methods: {
     goHome() {
       this.$router.push("/main/home");
+      //通过event bus 发送事件
+      EventBus.$emit("main-index", "0");
     }
   }
 };

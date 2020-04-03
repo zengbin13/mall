@@ -1,11 +1,14 @@
-export function debounce(fn) {
-  let timeout = null; // 创建一个标记用来存放定时器的返回值
-  return function() {
-    // 每当用户输入的时候把前一个 setTimeout clear 掉
-    clearTimeout(timeout);
-    // 然后又创建一个新的 setTimeout, 这样就能保证interval 间隔内如果时间持续触发，就不会执行 fn 函数
-    timeout = setTimeout(() => {
-      fn.apply(this, arguments);
-    }, 500);
-  };
-}
+import Vue from "vue";
+
+//时间转换函数
+import moment from "moment"; //导入模块
+moment.locale("zh-cn"); //设置语言 或 moment.lang('zh-cn');
+Vue.filter("dateformat", (dataStr, pattern = "YYYY-MM-DD") => {
+  return moment(dataStr * 1000).format(pattern);
+});
+
+//防抖函数
+export function debounce(fn, wait) {}
+
+
+

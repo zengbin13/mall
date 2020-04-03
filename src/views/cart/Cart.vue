@@ -11,7 +11,9 @@
       <cart-item v-for="item in cartList" :key="item.id" :cart-item="item"></cart-item>
     </div>
     <!-- empty -->
-    <empty v-else></empty>
+    <empty v-else class="empty"></empty>
+    <!-- total -->
+    <total-cart></total-cart>
   </div>
 </template>
 
@@ -19,12 +21,15 @@
 import NavBar from "../../components/common/navBar/NavBar";
 import Empty from "./empty/Empty";
 import CartItem from "./cartItem/CartItem";
+import TotalCart from "./totalCart/TotalCart";
+
 export default {
   name: "Cart",
   components: {
     NavBar,
     Empty,
-    CartItem
+    CartItem,
+    TotalCart
   },
   computed: {
     cartList: function() {
@@ -46,6 +51,13 @@ export default {
 }
 .cart {
   background-color: $bgColor;
-  height: 100vh;
+}
+.content {
+  background-color: $bgColor;
+  height: calc(100vh - 93px);
+  overflow: auto;
+}
+.empty {
+  height: calc(100vh - 44px);
 }
 </style>

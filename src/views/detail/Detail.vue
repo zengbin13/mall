@@ -68,7 +68,8 @@ export default {
         img: this.swipeImg[0],
         desc: this.itemInfo.title,
         price: this.itemInfo.highNowPrice,
-        count: 0
+        count: 0,
+        select: false
       }
     }
   },

@@ -5,8 +5,8 @@
       {{cartItem.shopName}}
     </div>
     <div class="content">
-      <div class="select">
-      </div>
+      <svg-icon icon-class="select" class="icon-select" v-if="cartItem.select" @click.native="toggleSelect()"></svg-icon>
+      <div class="select" v-else @click="toggleSelect()"></div>
       <img :src="cartItem.img" :alt="cartItem.img">
       <div class="info">
         <div class="desc">{{cartItem.desc}}</div>
@@ -15,7 +15,7 @@
           <span>
             {{cartItem.price}}
           </span>
-          <van-stepper v-model="cartItem.count" button-size="20px" class="stepper"/>
+          <van-stepper v-model="cartItem.count" button-size="20px" class="stepper" />
         </div>
       </div>
     </div>
@@ -24,6 +24,7 @@
 
 <script>
 import SvgIcon from "@/components/svgIcon/SvgIcon";
+import { EventBus } from '@/utils/event-bus.js'
 export default {
   name: "CartItem",
   props: {
@@ -33,6 +34,21 @@ export default {
   },
   components: {
     SvgIcon
+  },
+  methods: {
+    toggleSelect() {
+      this.cartItem.select = !this.cartItem.select
+      let index = this.$store.state.cartList.findIndex((item) => {
+        return item.iid === this.cartItem.iid
+      })
+      this.$store.commit({
+        type: "TOGGLE_CARTLIST_ITEM_SELECT",
+        index: index,
+        select: this.cartItem.select
+      })
+      //发出修改价格的事件
+      EventBus.$emit("filert-cart-list")
+    }
   }
 };
 </script>
@@ -55,6 +71,13 @@ export default {
 .content {
   display: flex;
   justify-content: start;
+}
+.icon-select {
+  flex-shrink: 0;
+  width: 21px;
+  height: 21px;
+  align-self: center;
+  margin: 0 8px;
 }
 .select {
   flex-shrink: 0;

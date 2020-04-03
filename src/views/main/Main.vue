@@ -12,6 +12,7 @@
 <script>
 import TabBar from "@/components/tabBar/TabBar";
 import TabBarItem from "@/components/tabBar/TabBarItem";
+import { EventBus } from "@/utils/event-bus.js";
 export default {
   name: "Main",
   data: function() {
@@ -33,6 +34,11 @@ export default {
   components: {
     TabBar,
     TabBarItem
+  },
+  mounted() {
+    EventBus.$on("main-index", (index) => {
+      this.currentIndex = Number(index)
+    })
   }
 };
 </script>
