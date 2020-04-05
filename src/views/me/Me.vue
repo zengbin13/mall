@@ -21,7 +21,6 @@
     <integral></integral>
     <!-- unit -->
     <unit-me></unit-me>
-
   </div>
 </template>
 
@@ -52,7 +51,7 @@ export default {
   top: 0;
 }
 .login {
-  background-color: $mainColor;
+  background-color: rgba($color: $mainColor, $alpha: .8);
   height: 100px;
   display: flex;
   justify-content: start;

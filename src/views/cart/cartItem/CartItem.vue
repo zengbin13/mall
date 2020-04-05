@@ -15,7 +15,7 @@
           <span>
             {{cartItem.price}}
           </span>
-          <van-stepper v-model="cartItem.count" button-size="20px" class="stepper" />
+          <van-stepper v-model="cartItem.count" button-size="20px" class="stepper" @change="changeCount()" />
         </div>
       </div>
     </div>
@@ -24,7 +24,7 @@
 
 <script>
 import SvgIcon from "@/components/svgIcon/SvgIcon";
-import { EventBus } from '@/utils/event-bus.js'
+import { EventBus } from "@/utils/event-bus.js";
 export default {
   name: "CartItem",
   props: {
@@ -37,17 +37,20 @@ export default {
   },
   methods: {
     toggleSelect() {
-      this.cartItem.select = !this.cartItem.select
-      let index = this.$store.state.cartList.findIndex((item) => {
-        return item.iid === this.cartItem.iid
-      })
+      this.cartItem.select = !this.cartItem.select;
+      let index = this.$store.state.cartList.findIndex(item => {
+        return item.iid === this.cartItem.iid;
+      });
       this.$store.commit({
         type: "TOGGLE_CARTLIST_ITEM_SELECT",
         index: index,
         select: this.cartItem.select
-      })
-      //发出修改价格的事件
-      EventBus.$emit("filert-cart-list")
+      });
+      //重新获取选中商品
+      EventBus.$emit("select-cart-list");
+    },
+    changeCount() {
+      this.$emit("change-count");
     }
   }
 };

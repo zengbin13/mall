@@ -5,7 +5,10 @@
       <div class="select" v-else @click="toggleSelect()"></div>
       <span>全选</span>
     </div>
-    <div class="price">
+    <div class="delete" v-if="isDelete">
+      <span @click="deleteItem()">删除</span>
+    </div>
+    <div class="price" v-else>
       <div class="totalPrice">合计: <span>￥{{totalPrice}}</span></div>
       <div class="totalCount">结算({{totalCount}})</div>
     </div>
@@ -14,13 +17,14 @@
 
 <script>
 import SvgIcon from "@/components/svgIcon/SvgIcon";
-import { EventBus } from '@/utils/event-bus.js'
+import { EventBus } from "@/utils/event-bus.js";
 export default {
   name: "TotalCart",
   data() {
     return {
       cartList: [],
-      isSelect: false
+      isSelect: false,
+      isDelete: false
     };
   },
   components: {
@@ -28,42 +32,39 @@ export default {
   },
   computed: {
     totalPrice() {
-      let price = 0;
-      price = this.cartList.reduce((acc, item) => {
-        return acc + item.count * item.price;
-      }, 0);
-      return price.toFixed(2);
+      return this.$store.state.totalPrice
     },
     totalCount() {
-      let count = 0;
-      count = this.cartList.reduce((acc, item) => {
-        return acc + item.count;
-      }, 0);
-      return count;
+      return this.$store.state.totalCount
     }
   },
   methods: {
+    //获取选中数据 - 选中的价格和数量
+    getSelectItem() {
+      this.cartList = this.$store.filterCartList;
+    },
+    //重置vuex中商品列表的select属性
     toggleSelect() {
       this.isSelect = !this.isSelect;
       this.$store.commit({
         type: "RESET_CARTLIST_SELECT",
         select: this.isSelect
       });
-      this.cartList = this.$store.state.cartList.filter(item => {
-        return item.select === true;
-      });
     },
-    filterCartList() {
-      this.cartList = this.$store.state.cartList.filter(item => {
-        return item.select === true;
-      });
+    deleteItem() {
+      this.$store.commit({
+        type: "DELETE_SELECT_ITEM"
+      })
     }
   },
   mounted() {
-    this.filterCartList();
-    EventBus.$on("filert-cart-list", () => {
-      this.filterCartList();
-    })
+    this.getSelectItem();
+    EventBus.$on("select-cart-list", () => {
+      this.getSelectItem()
+    });
+    EventBus.$on("toggle-delete", () => {
+      this.isDelete = !this.isDelete;
+    });
   }
 };
 </script>
@@ -118,6 +119,18 @@ export default {
     padding: 5px 10px;
     border-radius: 15px;
     background-color: $secColor;
+    color: #fff;
+  }
+}
+.delete {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  span {
+    display: inline-block;
+    padding: 5px 15px;
+    background-color: $secColor2;
+    border-radius: 20px;
     color: #fff;
   }
 }

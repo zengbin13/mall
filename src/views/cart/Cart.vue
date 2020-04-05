@@ -1,14 +1,10 @@
 <template>
   <div class="cart">
     <!-- nav bar -->
-    <nav-bar class="navbar">
-      <template #center>
-        购物车
-      </template>
-    </nav-bar>
+    <cart-nav-bar></cart-nav-bar>
     <!-- content -->
     <div class="content" v-if="cartList.length">
-      <cart-item v-for="item in cartList" :key="item.id" :cart-item="item"></cart-item>
+      <cart-item v-for="item in cartList" :key="item.id" :cart-item="item" @change-count="changeVuexCartList()"></cart-item>
     </div>
     <!-- empty -->
     <empty v-else class="empty"></empty>
@@ -18,7 +14,7 @@
 </template>
 
 <script>
-import NavBar from "../../components/common/navBar/NavBar";
+import CartNavBar from "./cartNavBar/CartNavBar";
 import Empty from "./empty/Empty";
 import CartItem from "./cartItem/CartItem";
 import TotalCart from "./totalCart/TotalCart";
@@ -26,7 +22,7 @@ import TotalCart from "./totalCart/TotalCart";
 export default {
   name: "Cart",
   components: {
-    NavBar,
+    CartNavBar,
     Empty,
     CartItem,
     TotalCart
@@ -35,20 +31,19 @@ export default {
     cartList: function() {
       return this.$store.state.cartList;
     }
+  },
+  methods: {
+    changeVuexCartList() {
+      this.$store.commit({
+        type: "RESET_CARTLIST",
+        cartList: this.cartList
+      });
+    }
   }
 };
 </script>
 
 <style lang="scss" scoped>
-.navbar {
-  background-color: $mainColor;
-  color: #fff;
-  font-size: 18px;
-  font-weight: 600;
-  letter-spacing: 2px;
-  position: sticky;
-  top: 0;
-}
 .cart {
   background-color: $bgColor;
 }
