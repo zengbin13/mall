@@ -28,15 +28,16 @@ export default new Vuex.Store({
       // },
     ],
     filterCartList: [],
-    totalPrice: 0,
-    totalCount: 0
+    totalPrice: 0.00,
+    totalCount: 0,
+    allSelect: false,
   },
   getters: {
     //选中的购物车列表
     filterCartList(state) {
-      return state.filterCartList = state.cartList.filter((item) => {
+      return (state.filterCartList = state.cartList.filter((item) => {
         return item.select === true;
-      });
+      }));
     },
     //选中购物车的总价格
     filterCartListPrice(state) {
@@ -44,7 +45,7 @@ export default new Vuex.Store({
       price = state.filterCartList.reduce((acc, item) => {
         return acc + item.count * item.price;
       }, 0);
-      return state.totalPrice = price.toFixed(2)
+      return (state.totalPrice = price.toFixed(2));
     },
     //选中购物车的数量
     filterCartListCount(state) {
@@ -52,12 +53,12 @@ export default new Vuex.Store({
       count = state.filterCartList.reduce((acc, item) => {
         return acc + item.count;
       }, 0);
-      return state.totalCount = count
+      return (state.totalCount = count);
     },
     //购物车的商品种类
     cartListKind(state) {
-      return state.cartList.length
-    }
+      return state.cartList.length;
+    },
   },
   mutations: {
     ADD_CART(state, plyload) {
@@ -72,7 +73,7 @@ export default new Vuex.Store({
       }
     },
     RESET_CARTLIST(state, plyload) {
-      state.cartList = plyload.cartList
+      state.cartList = plyload.cartList;
     },
     RESET_CARTLIST_SELECT(state, plyload) {
       state.cartList.forEach((item) => {
@@ -83,7 +84,7 @@ export default new Vuex.Store({
       state.cartList[plyload.index].select = plyload.select;
     },
     DELETE_SELECT_ITEM(state) {
-      let filterArr = []
+      let filterArr = [];
       let deleteArr = state.filterCartList;
       state.cartList.forEach((item) => {
         if (deleteArr.indexOf(item) === -1) {
@@ -91,6 +92,20 @@ export default new Vuex.Store({
         }
       });
       state.cartList = filterArr;
+    },
+    //判断是否为全选状态
+    ALL_SELECT(state) {
+      if (state.cartList.length === 0) {
+        return state.allSelect = false
+      }
+      let flag = state.cartList.every((item) => {
+        return item.select === true;
+      });
+      if(flag) {
+        state.allSelect = true
+      } else {
+        state.allSelect = false
+      }
     },
   },
   actions: {},

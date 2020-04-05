@@ -1,10 +1,10 @@
 <template>
   <van-goods-action>
     <van-goods-action-icon icon="chat-o" text="客服" dot />
-    <van-goods-action-icon icon="cart-o" text="购物车" badge="5" />
-    <van-goods-action-icon icon="shop-o" text="店铺" badge="12" />
+    <van-goods-action-icon icon="cart-o" text="购物车" :badge="cartCount" />
+    <van-goods-action-icon icon="shop-o" text="店铺" />
     <van-goods-action-button type="warning" text="加入购物车" color="#fd9fbe" @click="enterCart()" />
-    <van-goods-action-button type="danger" text="立即购买" color="#ff3f78" />
+    <van-goods-action-button type="danger" text="立即购买" color="#ff3f78" @click="pushCart()"/>
   </van-goods-action>
 </template>
 
@@ -23,6 +23,11 @@ export default {
       clickCount: 0
     };
   },
+  computed: {
+    cartCount() {
+      return this.$store.state.cartList.length
+    }
+  },
   methods: {
     enterCart() {
       //toast 添加到购物车
@@ -33,6 +38,10 @@ export default {
         type: "ADD_CART",
         info: this.info
       });
+    },
+    //跳转到购物车页面
+    pushCart() {
+      this.$router.push("/main/cart")
     }
   }
 };

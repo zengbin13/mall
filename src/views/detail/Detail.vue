@@ -35,13 +35,15 @@ import NavBarDetail from "./navBarDetail/NavBarDetail";
 import ItemInfo from "./itemInfo/ItemInfo";
 import ShopInfo from "./shopInfo/ShopInfo";
 import GoodsDetail from "./goodsDetail/GoodsDetail";
-import BackTop from "../../components/backTop/BackTop";
+import BackTop from "@/components/backTop/BackTop";
 import ItemParams from "./itemParams/ItemParams";
 import Comment from "./comment/Comment";
 import Recommend from "./recommend/Recommend";
 import CartBar from "./cartBar/CartBar";
 //方法
-import { debounce } from "../../utils/common.js";
+import { debounce } from "@/utils/common.js";
+import { EventBus } from "@/utils/event-bus";
+
 
 export default {
   name: "Detail",
@@ -58,6 +60,9 @@ export default {
       tops: [],
       comment: {},
       recommend: [],
+      scrollTop: 0,
+      currentIndex: 0,
+      navBarTop: 0
     };
   },
   computed: {
@@ -70,7 +75,7 @@ export default {
         price: this.itemInfo.highNowPrice,
         count: 0,
         select: false
-      }
+      };
     }
   },
   components: {
@@ -117,18 +122,30 @@ export default {
     },
     //图片加载完成
     imgLoad() {
-      this.getRefTop();
+      // debounce(this.getRefTop,10000)
+      this.getRefTop()
     },
     //获取scroll 距离
     getRefTop() {
       this.tops = [];
-      const navBarTop = this.$refs.navbar.$el.offsetHeight;
+      this.navBarTop = this.$refs.navbar.$el.offsetHeight;
       this.tops.push(0);
-      this.tops.push(this.$refs.params.$el.offsetTop - navBarTop);
-      this.tops.push(this.$refs.comment.$el.offsetTop - navBarTop);
-      this.tops.push(this.$refs.recommend.$el.offsetTop - navBarTop);
+      this.tops.push(this.$refs.params.$el.offsetTop - this.navBarTop);
+      this.tops.push(this.$refs.comment.$el.offsetTop - this.navBarTop);
+      this.tops.push(this.$refs.recommend.$el.offsetTop - this.navBarTop);
+      this.tops.push(Infinity);
       // console.log(this.tops);
       // console.log(this.$refs);
+    },
+    //判断滚动距离，高亮某项
+    autoHighLight() {
+      this.scrollTop = document.documentElement.scrollTop + this.navBarTop || document.body.scrollTop + this.navBarTop;
+      for (let i = 0; i < this.tops.length; i++) {
+        if (this.currentIndex !== i && this.tops[i] < this.scrollTop && this.scrollTop <= this.tops[i + 1]) {
+          this.currentIndex = i
+          EventBus.$emit("detail-current-index", i)
+        }
+      }
     }
   },
   created() {
@@ -139,6 +156,7 @@ export default {
   mounted() {
     //可能请求的数据还未接受成功  组件的v-if未渲染组件 为undefined
     // this.getRefTop();
+    window.addEventListener("scroll", this.autoHighLight);
   },
   updated() {
     // this.getRefTop();

@@ -10,7 +10,7 @@
     </div>
     <div class="price" v-else>
       <div class="totalPrice">合计: <span>￥{{totalPrice}}</span></div>
-      <div class="totalCount">结算({{totalCount}})</div>
+      <div class="totalCount" @click="pay()">结算({{totalCount}})</div>
     </div>
   </div>
 </template>
@@ -18,6 +18,8 @@
 <script>
 import SvgIcon from "@/components/svgIcon/SvgIcon";
 import { EventBus } from "@/utils/event-bus.js";
+import { Toast } from "vant";
+
 export default {
   name: "TotalCart",
   data() {
@@ -51,10 +53,19 @@ export default {
         select: this.isSelect
       });
     },
+    //删除购物车某些商品
     deleteItem() {
       this.$store.commit({
         type: "DELETE_SELECT_ITEM"
       })
+    },
+    //支付 toast
+    pay() {
+      Toast(`你需要支付${this.$store.state.totalPrice}元`)
+    },
+    //全选的样式切换
+    isAllSelect() {
+      this.isSelect = this.$store.state.allSelect
     }
   },
   mounted() {
@@ -64,6 +75,9 @@ export default {
     });
     EventBus.$on("toggle-delete", () => {
       this.isDelete = !this.isDelete;
+    });
+    EventBus.$on("all-select", () => {
+      this.isAllSelect()
     });
   }
 };

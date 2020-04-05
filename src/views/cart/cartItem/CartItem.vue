@@ -48,6 +48,11 @@ export default {
       });
       //重新获取选中商品
       EventBus.$emit("select-cart-list");
+      //判断是否为全选状态
+      this.$store.commit({
+        type: "ALL_SELECT"
+      });
+      EventBus.$emit("all-select");
     },
     changeCount() {
       this.$emit("change-count");

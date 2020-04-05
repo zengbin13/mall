@@ -23,6 +23,8 @@
 <script>
 import SvgIcon from "@/components/svgIcon/SvgIcon";
 import NavBar from "@/components/common/navBar/NavBar";
+import { EventBus } from "@/utils/event-bus";
+
 export default {
   name: "NavBarDetail",
   data() {
@@ -53,7 +55,9 @@ export default {
     SvgIcon
   },
   mounted() {
-    
+    EventBus.$on("detail-current-index", (index) => {
+      this.currentIndx = index
+    })
   }
 };
 </script>
