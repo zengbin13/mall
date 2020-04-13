@@ -20,6 +20,8 @@ Vue.use(VueLazyload, {
   loading: require("./assets/img/placeholder.png"),
   attempt: 1
 })
+//设置根元素字体大小
+import "./utils/rem"
 
 //$bus 不具备DOM的组件
 // Vue.prototype.$bus = new Vue()
