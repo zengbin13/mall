@@ -3,7 +3,7 @@
     <div v-for="items in goodsDetail" :key="items.id">
       <span class="desc">{{ items.key }}</span>
       <div>
-        <img :src="item" :alt="item" v-for="item in items.list" :key="item.id" style="width:100%" @load="imgLoad()" />
+        <img v-lazy="item" :alt="item" v-for="item in items.list" :key="item.id" style="width:100%" @load="imgLoad()" />
       </div>
     </div>
   </div>

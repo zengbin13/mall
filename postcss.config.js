@@ -1,0 +1,13 @@
+module.exports = {
+  plugins: {
+    "postcss-pxtorem": {
+      // 设计稿 375:37.5
+      // 设计稿：750:75
+      // Vant 是基于 375
+      rootValue: 16,
+      unit_precision: 5,
+      prop_white_list: ['font', 'font-size', 'line-height', 'letter-spacing', 'height'],
+      media_query: true
+    }
+  }
+}

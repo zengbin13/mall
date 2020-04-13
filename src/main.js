@@ -12,7 +12,14 @@ import "./icons/index";
 import Vant from 'vant';
 import 'vant/lib/index.css';
 Vue.use(Vant);
-
+//引入全局插件
+import VueLazyload from 'vue-lazyload'
+// Vue.use(VueLazylaod)
+Vue.use(VueLazyload, {
+  preLoad: 1.3,
+  loading: require("./assets/img/placeholder.png"),
+  attempt: 1
+})
 
 //$bus 不具备DOM的组件
 // Vue.prototype.$bus = new Vue()

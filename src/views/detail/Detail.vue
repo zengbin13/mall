@@ -122,8 +122,9 @@ export default {
     },
     //图片加载完成
     imgLoad() {
-      // debounce(this.getRefTop,10000)
-      this.getRefTop()
+      let action = debounce(this.getRefTop)
+      action()
+      // this.getRefTop()
     },
     //获取scroll 距离
     getRefTop() {

@@ -2,7 +2,7 @@
   <div class="goodsItem" @click.prevent="itemClick()">
     <figure>
       <a :href="link">
-        <img :src="image" :alt="title" class="img" />
+        <img v-lazy="image" :alt="title" class="img" />
       </a>
       <figcaption>{{ title }}</figcaption>
     </figure>
