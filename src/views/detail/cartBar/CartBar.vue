@@ -1,15 +1,16 @@
 <template>
   <van-goods-action>
     <van-goods-action-icon icon="chat-o" text="客服" dot />
-    <van-goods-action-icon icon="cart-o" text="购物车" :badge="cartCount" />
+    <van-goods-action-icon icon="cart-o" text="购物车" :badge="cartCount" @click="pushCart()" />
     <van-goods-action-icon icon="shop-o" text="店铺" />
     <van-goods-action-button type="warning" text="加入购物车" color="#fd9fbe" @click="enterCart()" />
-    <van-goods-action-button type="danger" text="立即购买" color="#ff3f78" @click="pushCart()"/>
+    <van-goods-action-button type="danger" text="立即购买" color="#ff3f78" @click="pushCart()" />
   </van-goods-action>
 </template>
 
 <script>
 import { Toast } from "vant";
+import { EventBus } from "@/utils/event-bus.js";
 
 export default {
   name: "CartBar",
@@ -25,7 +26,7 @@ export default {
   },
   computed: {
     cartCount() {
-      return this.$store.state.cartList.length
+      return this.$store.state.cartList.length;
     }
   },
   methods: {
@@ -41,7 +42,8 @@ export default {
     },
     //跳转到购物车页面
     pushCart() {
-      this.$router.push("/main/cart")
+      this.$router.push("/main/cart");
+      EventBus.$emit("main-index", "2");
     }
   }
 };

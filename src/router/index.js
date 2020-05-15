@@ -12,34 +12,55 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: "/",
-    redirect: "/main/home"
+    redirect: "/main/home",
   },
   {
     path: "/main",
-    redirect: "/main/home"
+    redirect: "/main/home",
   },
   {
     path: "/main",
     name: "Main",
     component: Main,
     children: [
-      { path: "/main/home", name: "Home", component: Home },
-      { path: "/main/category", name: "Category", component: Category },
-      { path: "/main/cart", name: "Cart", component: Cart },
-      { path: "/main/me", name: "Me", component: Me }
-    ]
+      {
+        path: "/main/home",
+        name: "Home",
+        component: Home,
+        meta: { tabBarIndex: 0 },
+      },
+      {
+        path: "/main/category",
+        name: "Category",
+        component: Category,
+        meta: { tabBarIndex: 1 },
+      },
+      {
+        path: "/main/cart",
+        name: "Cart",
+        component: Cart,
+        meta: { tabBarIndex: 2 },
+      },
+      {
+        path: "/main/me",
+        name: "Me",
+        component: Me,
+        meta: { tabBarIndex: 3 },
+      },
+    ],
   },
   {
     path: "/detail",
     name: "Detail",
-    component: Detail
-  }
+    component: Detail,
+  },
 ];
 
 const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
-  routes
+  routes,
 });
+
 
 export default router;

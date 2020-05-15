@@ -9,19 +9,21 @@ Vue.config.productionTip = false;
 import "normalize.css";
 //引入全局组件
 import "./icons/index";
-import Vant from 'vant';
-import 'vant/lib/index.css';
+import Vant from "vant";
+import "vant/lib/index.css";
 Vue.use(Vant);
+//路由相关
+import "./router/permit";
 //引入全局插件
-import VueLazyload from 'vue-lazyload'
+import VueLazyload from "vue-lazyload";
 // Vue.use(VueLazylaod)
 Vue.use(VueLazyload, {
-  preLoad: 1.3,
+  preLoad: 3,
   loading: require("./assets/img/placeholder.png"),
-  attempt: 1
-})
+  attempt: 1,
+});
 //设置根元素字体大小
-import "./utils/rem"
+import "./utils/rem";
 
 //$bus 不具备DOM的组件
 // Vue.prototype.$bus = new Vue()
@@ -29,5 +31,5 @@ import "./utils/rem"
 new Vue({
   router,
   store,
-  render: h => h(App)
+  render: (h) => h(App),
 }).$mount("#app");

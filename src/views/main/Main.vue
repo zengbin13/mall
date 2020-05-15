@@ -17,7 +17,7 @@ export default {
   name: "Main",
   data: function() {
     return {
-      currentIndex: 0,
+      currentIndex: this.$route.meta.tabBarIndex || 0,
       tabBarData: [
         { svg: "home", text: "主页", path: "/main/home" },
         { svg: "category", text: "分类", path: "/main/category" },
@@ -35,10 +35,13 @@ export default {
     TabBar,
     TabBarItem
   },
+  // created() {
+  //   console.log(this.$route);
+  // },
   mounted() {
-    EventBus.$on("main-index", (index) => {
-      this.currentIndex = Number(index)
-    })
+    EventBus.$on("main-index", index => {
+      this.currentIndex = Number(index);
+    });
   }
 };
 </script>

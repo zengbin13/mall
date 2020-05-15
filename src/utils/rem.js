@@ -6,7 +6,10 @@ function setRem() {
   // 计算实际的rem值并赋予给html的font-size
   document.documentElement.style.fontSize = (baseSize * scale) + 'px';
 }
+
+
 setRem();
+//4.监听浏览器窗口变化
 window.addEventListener('resize', () => {
   setRem();
 });
