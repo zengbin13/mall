@@ -71,7 +71,7 @@ module.exports = {
     proxy: {
       ///api开头的接口，代理访问规则
       "https://zengbin13.github.io/": {
-        target: "http://123.207.32.32:8000/api/m3", //代理的域名
+        target: "http://123.207.32.32:8000/api2/m3", //代理的域名
         changeOrigin: true, //是否启用代理
         pathRewrite: {  //重写请求
           "^/https://zengbin13.github.io/": ""
