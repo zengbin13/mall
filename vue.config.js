@@ -2,7 +2,7 @@ const path = require("path");
 
 module.exports = {
   // 部署应用包时的基本 URL,用法和 webpack 本身的 output.publicPath 一致
-  publicPath: process.env.NODE_ENV === "development" ? "/" : "/mall/",
+  publicPath: process.env.NODE_ENV === "development" ? "" : "/mall/",
   // publicPath: "/",
   // 输出文件目录
   outputDir: "dist",
@@ -68,6 +68,16 @@ module.exports = {
     hot: true, // 开启热加载
     hotOnly: false,
     proxy: null, // 设置代理
+    proxy: {
+      ///api开头的接口，代理访问规则
+      "/api": {
+        target: "http://123.207.32.32:8000/api/m3", //代理的域名
+        changeOrigin: true, //是否启用代理
+        pathRewrite: {  //重写请求
+          "^/api": ""
+        }
+      }
+    },
     overlay: {
       // 全屏模式下是否显示脚本错误
       warnings: true,
