@@ -3,7 +3,7 @@ import axios from "axios";
 export function request(config) {
   // const BASEURL = process.env.NODE_ENV === "production" ? "/api" : "/api";
   const instance = axios.create({
-    baseURL: "/api",
+    baseURL: "https://123.207.32.32:8000/api/m3",
     timeout: 10000,
   });
   //拦截器
