@@ -73,10 +73,10 @@ module.exports = {
       "/github": {
         target: "http://123.207.32.32:8000/api/m3", //代理的域名
         changeOrigin: true, //是否启用代理
-        // pathRewrite: {
-        //   //重写请求
-        //   "^/api": "",
-        // },
+        pathRewrite: {
+          //重写请求
+          "^/github": "",
+        },
       },
     },
     overlay: {
