@@ -68,16 +68,16 @@ module.exports = {
     hot: true, // 开启热加载
     hotOnly: false,
     proxy: null, // 设置代理
-    // proxy: {
-    //   ///api开头的接口，代理访问规则
-    //   "/api": {
-    //     target: "http://123.207.32.32:8000/api/m3", //代理的域名
-    //     changeOrigin: true, //是否启用代理
-    //     pathRewrite: {  //重写请求
-    //       "^/api": ""
-    //     }
-    //   }
-    // },
+    proxy: {
+      ///api开头的接口，代理访问规则
+      "https://zengbin13.github.io/": {
+        target: "http://123.207.32.32:8000/api/m3", //代理的域名
+        changeOrigin: true, //是否启用代理
+        pathRewrite: {  //重写请求
+          "^/https://zengbin13.github.io/": ""
+        }
+      }
+    },
     overlay: {
       // 全屏模式下是否显示脚本错误
       warnings: true,

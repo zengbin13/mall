@@ -1,9 +1,10 @@
 import axios from "axios";
 
 export function request(config) {
+  // const BASEURL = process.env.NODE_ENV === "production" ? "/api" : "/api";
   const instance = axios.create({
-    baseURL: "http://123.207.32.32:8000/api/m3",
-    timeout: 10000
+    baseURL: "/api",
+    timeout: 10000,
   });
   //拦截器
   instance.interceptors.request.use(
@@ -22,9 +23,9 @@ export function request(config) {
       return response;
     },
     function(error) {
-      return Promise.reject(error)
+      return Promise.reject(error);
     }
   );
 
-  return instance(config)
+  return instance(config);
 }
