@@ -1,8 +1,9 @@
 import axios from "axios";
 
+const BASEURL = process.env.NODE_ENV === "production" ? "/github" : "http://123.207.32.32:8000/api/m3";
 export function request(config) {
   const instance = axios.create({
-    baseURL: "http://123.207.32.32:8000/api/m3",
+    baseURL: BASEURL,
     timeout: 10000
   });
   //拦截器
