@@ -68,6 +68,7 @@ export default {
   top: 0;
   z-index: 20;
   background-color: #fff;
+  cursor: pointer;
   .left {
     font-size: 20px;
     fill: $mainColor;

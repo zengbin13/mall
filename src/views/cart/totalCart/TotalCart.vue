@@ -34,16 +34,16 @@ export default {
   },
   computed: {
     totalPrice() {
-      return this.$store.state.totalPrice
+      return this.$store.getters.filterCartListPrice
     },
     totalCount() {
-      return this.$store.state.totalCount
+      return this.$store.getters.filterCartListCount
     }
   },
   methods: {
     //获取选中数据 - 选中的价格和数量
     getSelectItem() {
-      this.cartList = this.$store.filterCartList;
+      this.cartList = this.$store.getters.filterCartList;
     },
     //重置vuex中商品列表的select属性
     toggleSelect() {
@@ -61,7 +61,7 @@ export default {
     },
     //支付 toast
     pay() {
-      Toast(`你需要支付${this.$store.state.totalPrice}元`)
+      Toast(`你需要支付${this.$store.getters.filterCartListPrice}元`)
     },
     //全选的样式切换
     isAllSelect() {

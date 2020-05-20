@@ -27,33 +27,31 @@ export default new Vuex.Store({
       //   shopName: "立得相机店",
       // },
     ],
-    filterCartList: [],
-    totalPrice: "0.00",
+    // filterCartList: [],
+    // totalPrice: "0.00",
     totalCount: 0,
     allSelect: false,
   },
   getters: {
     //选中的购物车列表
     filterCartList(state) {
-      return (state.filterCartList = state.cartList.filter((item) => {
+      return state.cartList.filter((item) => {
         return item.select === true;
-      }));
+      });
     },
     //选中购物车的总价格
-    filterCartListPrice(state) {
-      let price;
-      price = state.filterCartList.reduce((acc, item) => {
+    filterCartListPrice(state, getters) {
+      let price = getters.filterCartList.reduce((acc, item) => {
         return acc + item.count * item.price;
       }, 0);
-      return (state.totalPrice = price.toFixed(2));
+      return price.toFixed(2);
     },
     //选中购物车的数量
-    filterCartListCount(state) {
-      let count;
-      count = state.filterCartList.reduce((acc, item) => {
+    filterCartListCount(state, getters) {
+      let count = getters.filterCartList.reduce((acc, item) => {
         return acc + item.count;
       }, 0);
-      return (state.totalCount = count);
+      return count;
     },
     //购物车的商品种类
     cartListKind(state) {
@@ -96,17 +94,19 @@ export default new Vuex.Store({
     //判断是否为全选状态
     ALL_SELECT(state) {
       if (state.cartList.length === 0) {
-        return state.allSelect = false
+        return (state.allSelect = false);
       }
       let flag = state.cartList.every((item) => {
         return item.select === true;
       });
-      if(flag) {
-        state.allSelect = true
+      if (flag) {
+        state.allSelect = true;
       } else {
-        state.allSelect = false
+        state.allSelect = false;
       }
     },
+    //改变选择的商品列表CHANGE_
+    // CHANGE_FILTER_CARTLIST(state) {},
   },
   actions: {},
   modules: {},

@@ -9,10 +9,10 @@ module.exports = {
         "line-height",
         "letter-spacing",
         "height",
-        "width"
+        "width",
       ],
       media_query: true,
-      exclude: [/^TabBar/]
-    }
-  }
+      exclude: [/^TabBar/],
+    },
+  },
 };

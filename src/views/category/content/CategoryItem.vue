@@ -33,12 +33,22 @@ figure {
   margin-top: 20px;
   font-size: 13px;
   img {
+    display: block;
+    margin: 0 auto;
     width: 60px;
   }
   figcaption {
     display: inline-block;
     margin-top: 6px;
     color: $mainText;
+  }
+}
+figure:last-child {
+    margin-right: auto;
+}
+@media screen and (min-width: 768px) {
+  figure {
+    width: 24%;
   }
 }
 </style>

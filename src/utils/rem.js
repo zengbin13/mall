@@ -4,7 +4,9 @@ function setRem() {
   // 实际设备页面宽度和设计稿的比值
   const scale = document.documentElement.clientWidth / 375;
   // 计算实际的rem值并赋予给html的font-size
-  document.documentElement.style.fontSize = (baseSize * scale) + 'px';
+  if (baseSize * scale < 28) {
+    document.documentElement.style.fontSize = (baseSize * scale) + 'px';
+  }
 }
 
 
