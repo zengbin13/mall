@@ -34,10 +34,13 @@ export default {
   },
   computed: {
     totalPrice() {
-      return this.$store.getters.filterCartListPrice
+      return this.$store.getters.filterCartListPrice;
     },
     totalCount() {
-      return this.$store.getters.filterCartListCount
+      return this.$store.getters.filterCartListCount;
+    },
+    filterCartList() {
+      return this.$store.getters.filterCartList;
     }
   },
   methods: {
@@ -56,28 +59,29 @@ export default {
     //删除购物车某些商品
     deleteItem() {
       this.$store.commit({
-        type: "DELETE_SELECT_ITEM"
-      })
+        type: "DELETE_SELECT_ITEM",
+        filterCartList: this.filterCartList
+      });
     },
     //支付 toast
     pay() {
-      Toast(`你需要支付${this.$store.getters.filterCartListPrice}元`)
+      Toast(`你需要支付${this.$store.getters.filterCartListPrice}元`);
     },
     //全选的样式切换
     isAllSelect() {
-      this.isSelect = this.$store.state.allSelect
+      this.isSelect = this.$store.state.allSelect;
     }
   },
   mounted() {
     this.getSelectItem();
     EventBus.$on("select-cart-list", () => {
-      this.getSelectItem()
+      this.getSelectItem();
     });
     EventBus.$on("toggle-delete", () => {
       this.isDelete = !this.isDelete;
     });
     EventBus.$on("all-select", () => {
-      this.isAllSelect()
+      this.isAllSelect();
     });
   }
 };
