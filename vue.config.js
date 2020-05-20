@@ -2,7 +2,7 @@ const path = require("path");
 
 module.exports = {
   // 部署应用包时的基本 URL,用法和 webpack 本身的 output.publicPath 一致
-  publicPath: process.env.NODE_ENV === "development" ? "" : "/mall/",
+  publicPath: process.env.NODE_ENV === "development" ? "/" : "/mall/",
   // publicPath: "/",
   // 输出文件目录
   outputDir: "dist",

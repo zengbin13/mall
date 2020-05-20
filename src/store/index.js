@@ -28,7 +28,7 @@ export default new Vuex.Store({
       // },
     ],
     filterCartList: [],
-    totalPrice: 0.00,
+    totalPrice: "0.00",
     totalCount: 0,
     allSelect: false,
   },
